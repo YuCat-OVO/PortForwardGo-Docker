@@ -66,7 +66,7 @@ download_files() {
 extract_files() {
     mkdir -p /app/{bin,config}
     # arm64 download all version
-    if [ $arch == "amd64" ]; then
+    if [ "$arch" == "amd64" ]; then
         for i in amd64v{1..4}; do
             if [ ! -f "/tmp/RClient_${i}" ]; then
                 mkdir "/tmp/RClient_${i}"
@@ -87,8 +87,10 @@ extract_files() {
 main() {
     init_color
     echo -e "${Font_SkyBlue}RClient download${Font_Suffix}"
+    echo -e "${Font_SkyBlue}$(uname -m)${Font_Suffix}"
     mirror="https://pkg.zeroteam.top"
     ver=${VERSION:-"1.2.0"}
+    arch=${ARCH:-"amd64"}
     while [ $# -gt 0 ]; do
         case $1 in
         --mirror)
@@ -99,6 +101,9 @@ main() {
             ver=$2
             shift
             ;;
+        --arch)
+            arch=$2
+            ;;
         *)
             echo -e "${Font_Red} Unknown param: $1 ${Font_Suffix}"
             exit 1
@@ -106,8 +111,8 @@ main() {
         esac
         shift
     done
-    check_architecture
-    if [ $arch == "amd64" ]; then
+    # check_architecture
+    if [ "$arch" == "amd64" ]; then
         for i in amd64v{1..4}; do
             download_files "$i"
         done

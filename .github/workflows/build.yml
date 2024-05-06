@@ -94,6 +94,9 @@ jobs:
           echo "PLATFORM_PAIR=${platform//\//-}" >> "$GITHUB_ENV"
           echo "ARCH=${platform//linux\//}" >> "$GITHUB_ENV"
 
+          version=$(curl https://pkg.zeroteam.top/PortForwardGo/latest_version)
+          echo "VERSION=${version}" >> $GITHUB_ENV
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -133,6 +136,8 @@ jobs:
             /tmp/bake-meta.json
           targets: image
           set: |
+            *.args.VERSION=${{ env.VERSION }}
+            *.args.ARCH=${{ env.ARCH }}
             *.tags=
             *.platform=${{ matrix.platform }}
             *.cache-from=type=gha,scope=build-${{ env.PLATFORM_PAIR }}
