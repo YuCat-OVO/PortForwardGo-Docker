@@ -15,4 +15,4 @@ FROM docker.io/library/alpine:edge
 
 COPY --from=download /app /app
 
-ENTRYPOINT [ "sh", "-c", "/app/start.sh" ]
+ENTRYPOINT [ "/app/start.sh" ]

@@ -90,7 +90,7 @@ main() {
     echo -e "${Font_SkyBlue}$(uname -m)${Font_Suffix}"
     mirror="https://pkg.zeroteam.top"
     ver=${VERSION:-"1.2.0"}
-    arch=${ARCH:-"amd64"}
+    build_arch=${ARCH:-"amd64"}
     while [ $# -gt 0 ]; do
         case $1 in
         --mirror)

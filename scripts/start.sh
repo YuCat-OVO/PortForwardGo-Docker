@@ -41,16 +41,25 @@ check_amd64_version() {
 }
 
 check_start() {
-    CONFIG_PATH=${CONFIG_PATH:-"-config /app/config/config.json"}
-    LOG_PATH=${LOG_PATH:-""}
+    CONFIG_PATH=${CONFIG_PATH:-"/app/config/config.json"}
+    if [ -n "$API_URL" ]; then
+        API_URL="-api $API_URL"
+    fi
+    if [ -n "$API_ID" ]; then
+        API_ID="-id $API_ID"
+    fi
+    if [ -n "$API_SECRET" ]; then
+        API_SECRET="-secret $API_SECRET"
+    fi
+    CONFIG="-config $CONFIG_PATH"
+    if [ -n "$LOG_PATH" ]; then
+        LOG="-log $LOG_PATH"
+    fi
     if [ "$DEBUG_FLAG" = true ]; then
         DEBUG="-debug "
     fi
     if [ "$DISABLE_UDP" = true ]; then
         UDP="-disable-udp "
-    fi
-    if [ -n "$LOG_PATH" ]; then
-        LOG="-log $LOG_PATH"
     fi
     while [ $# -gt 0 ]; do
         case $1 in
@@ -103,7 +112,8 @@ main() {
         fi
     fi
     check_start "$@"
-    command="/app/RClient $HELP $API_URL $API_ID $API_SECRET $CONFIG_PATH $DEBUG$UDP$LOG"
+    command="/app/RClient $HELP $API_URL $API_ID $API_SECRET $CONFIG $DEBUG$UDP$LOG"
+    # echo "$command"
 }
 
 main "$@"
