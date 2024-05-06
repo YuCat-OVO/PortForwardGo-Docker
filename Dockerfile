@@ -11,7 +11,9 @@ RUN \
     apk --no-cache add wget bash && \
     /scripts/download.sh --version ${VERSION} --arch ${ARCH}
 
-FROM docker.io/library/alpine:edge
+FROM docker.io/library/alpine:20240329
+
+LABEL org.opencontainers.image.source="https://github.com/YuCat-OVO/PortForwardGo-Docker"
 
 COPY --from=download /app /app
 
