@@ -15,4 +15,8 @@ FROM docker.io/library/alpine:edge
 
 COPY --from=download /app /app
 
+RUN \
+    sed -i 's/dl-cdn.alpinelinux.org/mirrors.lzu.edu.cn/g' "/etc/apk/repositories" && \
+    apk --no-cache add tzdata
+
 ENTRYPOINT [ "/app/start.sh" ]

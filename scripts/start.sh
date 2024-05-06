@@ -117,4 +117,4 @@ main() {
 }
 
 main "$@"
-$command
+exec $command
