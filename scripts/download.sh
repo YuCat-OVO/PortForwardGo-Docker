@@ -13,17 +13,17 @@ init_color() {
 }
 
 check_architecture() {
-    case $(uname -m) in
-    x86_64)
+    case $1 in
+    amd64)
         arch="amd64"
         ;;
-    i386 | i686)
+    386)
         arch="386"
         ;;
-    armv5* | armv6* | armv7*)
+    arm/v6 | arm/v7)
         arch="armv7"
         ;;
-    aarch64)
+    arm64)
         arch="arm64"
         ;;
     s390x)
@@ -66,7 +66,7 @@ download_files() {
 extract_files() {
     mkdir -p /app/{bin,config}
     # arm64 download all version
-    if [ "$arch" == "amd64" ]; then
+    if [ $arch == "amd64" ]; then
         for i in amd64v{1..4}; do
             if [ ! -f "/tmp/RClient_${i}" ]; then
                 mkdir "/tmp/RClient_${i}"
@@ -102,7 +102,8 @@ main() {
             shift
             ;;
         --arch)
-            arch=$2
+            build_arch=$2
+            shift
             ;;
         *)
             echo -e "${Font_Red} Unknown param: $1 ${Font_Suffix}"
@@ -111,8 +112,8 @@ main() {
         esac
         shift
     done
-    # check_architecture
-    if [ "$arch" == "amd64" ]; then
+    check_architecture "$build_arch"
+    if [ $arch == "amd64" ]; then
         for i in amd64v{1..4}; do
             download_files "$i"
         done

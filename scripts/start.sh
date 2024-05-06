@@ -84,6 +84,7 @@ check_start() {
             ;;
         --disable-udp)
             UDP="-disable-udp "
+            shift
             ;;
         *)
             printf "%s Unknown param: $1 %s" "${Font_Red}" "${Font_Suffix}"
