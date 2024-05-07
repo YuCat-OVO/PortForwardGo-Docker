@@ -19,6 +19,6 @@ COPY --from=download /app /app
 
 RUN \
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.lzu.edu.cn/g' "/etc/apk/repositories" && \
-    apk --no-cache add tzdata
+    apk --no-cache add tzdata tini
 
-ENTRYPOINT [ "/app/start.sh" ]
+ENTRYPOINT ["tini", "--", "/app/start.sh" ]
