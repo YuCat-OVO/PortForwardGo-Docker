@@ -14,11 +14,11 @@ init_color() {
 
 has_cpu_flags() {
     flags=$(grep -E '^flags' /proc/cpuinfo | head -n 1 | awk -F ':' '{print $2}')
-    if [ -z "$flags" ]; then
+    if [ -z "${flags}" ]; then
         flags=$(grep -E '^Features' /proc/cpuinfo | head -n 1 | awk -F ':' '{print $2}')
     fi
     for flag in "$@"; do
-        if ! echo "$flags" | grep -q "\\<$flag\\>"; then
+        if ! echo "${flags}" | grep -q "\\<${flag}\\>"; then
             return 1
         fi
     done
@@ -42,23 +42,23 @@ check_amd64_version() {
 
 check_start() {
     CONFIG_PATH=${CONFIG_PATH:-"/app/config/config.json"}
-    if [ -n "$API_URL" ]; then
-        API_URL="-api $API_URL"
+    if [ -n "${API_URL}" ]; then
+        API_URL="-api ${API_URL}"
     fi
-    if [ -n "$API_ID" ]; then
-        API_ID="-id $API_ID"
+    if [ -n "${API_ID}" ]; then
+        API_ID="-id ${API_ID}"
     fi
-    if [ -n "$API_SECRET" ]; then
-        API_SECRET="-secret $API_SECRET"
+    if [ -n "${API_SECRET}" ]; then
+        API_SECRET="-secret ${API_SECRET}"
     fi
-    CONFIG="-config $CONFIG_PATH"
-    if [ -n "$LOG_PATH" ]; then
-        LOG="-log $LOG_PATH"
+    CONFIG="-config ${CONFIG_PATH}"
+    if [ -n "${LOG_PATH}" ]; then
+        LOG="-log ${LOG_PATH}"
     fi
-    if [ "$DEBUG_FLAG" = true ]; then
+    if [ "${DEBUG_FLAG}" = true ]; then
         DEBUG="-debug "
     fi
-    if [ "$DISABLE_UDP" = true ]; then
+    if [ "${DISABLE_UDP}" = true ]; then
         UDP="-disable-udp "
     fi
     while [ $# -gt 0 ]; do
@@ -105,16 +105,17 @@ check_start() {
 
 main() {
     init_color
-    if [ "$(uname -m)" = "x86_64" ]; then
+    arch=$(uname -m)
+    if [ "${arch}" = "x86_64" ]; then
         check_amd64_version
         if [ ! -f /app/RClient ]; then
             ln -s "/app/bin/RClient_${arch}" /app/RClient
         fi
     fi
     check_start "$@"
-    command="/app/RClient $HELP $API_URL $API_ID $API_SECRET $CONFIG $DEBUG$UDP$LOG"
+    command="/app/RClient ${HELP} ${API_URL} ${API_ID} ${API_SECRET} ${CONFIG} ${DEBUG}${UDP}${LOG}"
     # echo "$command"
 }
 
 main "$@"
-exec $command
+exec ${command}

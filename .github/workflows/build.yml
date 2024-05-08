@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "main"
+      - main
     paths-ignore:
       - ".github/**"
       - "docs/**"
