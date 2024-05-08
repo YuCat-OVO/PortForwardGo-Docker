@@ -9,7 +9,7 @@ on:
       - README.md
 
 env:
-  IMAGE_NAME: qbittorrentee
+  IMAGE_NAME: rclient
 
 jobs:
   job:
@@ -27,8 +27,8 @@ jobs:
 
       - name: Get Description
         run: |
-          description=curl "https://api.github.com/repos/${{ github.repository }}" | jq -r ".description"
-          echo "DESCRIPTION=${description}" >> "$GITHUB_ENV"
+          description=$(curl "https://api.github.com/repos/${{ github.repository }}" | jq -r ".description")
+          echo "DESCRIPTION='${description}'" >> "$GITHUB_ENV"
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v4
