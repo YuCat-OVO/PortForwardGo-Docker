@@ -28,7 +28,7 @@ jobs:
       - name: Get Description
         run: |
           description=$(curl "https://api.github.com/repos/${{ github.repository }}" | jq -r ".description")
-          echo "DESCRIPTION='${description}'" >> "$GITHUB_ENV"
+          echo "DESCRIPTION=${description}" >> "$GITHUB_ENV"
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v4
