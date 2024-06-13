@@ -11,7 +11,7 @@ RUN \
     apk --no-cache add wget bash && \
     /scripts/download.sh --version ${VERSION} --arch ${ARCH}
 
-FROM docker.io/library/alpine:20240329
+FROM docker.io/library/alpine:20240606
 
 LABEL org.opencontainers.image.source="https://github.com/YuCat-OVO/PortForwardGo-Docker"
 
