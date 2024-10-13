@@ -1,5 +1,23 @@
 # PortForwardGo-Docker
 
+# ⚠️ Project Deprecated
+
+## This project is no longer maintained
+
+This repository is no longer actively maintained and will not receive any further updates or bug fixes. Users are encouraged to explore alternative solutions or fork this project if necessary.
+
+Thank you for your interest and support.
+
+# ⚠️ 项目已停止维护
+
+## 本项目已经不再维护
+
+本仓库将不再进行任何更新或 bug 修复。建议用户探索其他替代方案，或者根据需要自行 fork 本项目。
+
+感谢大家一直以来的关注和支持。
+
+---
+
 PortForwardGo 项目下的内网穿透客户端 docker 版本
 
 使用的网络服务里面有个这玩意，为了方便管理所以弄个 Docker 镜像
@@ -15,7 +33,7 @@ PortForwardGo 项目下的内网穿透客户端 docker 版本
 | LOG_PATH    | -log           | string | 日志文件路径 | --log         |
 | DEBUG_FLAG  | -debug         | bool   | 调试模式     | --debug       |
 | DISABLE_UDP | -disable-udp   | bool   | 关闭UDP      | --disable-udp |
-|             | -h             |        | 帮助        | -h             |
+|             | -h             |        | 帮助         | -h            |
 
 ## Docker 命令行运行
 ``` shell
